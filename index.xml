@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>https://ycooperz.github.io/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 08 Oct 2019 16:30:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://ycooperz.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python实现对大文件的增量读取</title>
+      <link>https://ycooperz.github.io/post/blog/</link>
+      <pubDate>Tue, 08 Oct 2019 16:30:58 +0800</pubDate>
+      
+      <guid>https://ycooperz.github.io/post/blog/</guid>
+      <description> 一、背景 前段时间在做算法测试，需要对源于日志的数据进行分析才能获取到结果；日志文件较大，所以需要获取数据的变化曲线，增量读取是最好的方式。
+ 网上有很多人的技术博客都是写的用for循环readline以及一个计数器去增量读取，假如文件很大，遍历一次太久。而且对于很多大文件的增量读取，如果遍历每一行比对历史记录的输出或者全都加载到内存通过历史记录的索引查找，是非常浪费资源的。
+获取文件句柄的基本理论中就包含指针操作。linux的文件描述符的struct里有一个f_pos的这么个属性，里面存着文件当前读取位置，通过这个东东经过vfs的一系列映射就会得到硬盘存储的位置了，所以很直接，很快。
+在Python中的读取文件的方法也有类似的属性。
+ 二、具体实现方法 Python中相关的方法的核心函数如下：
+   函数 作用     tell() 返回文件当前位置   seek() 从指定位置开始读取信息    其中seek()有三种模式：
+ f.seek(p,0)移动当文件第p个字节处，绝对位置 f.seek(p,1)移动到相对于当前位置之后的p个字节 f.seek(p,2)移动到相对文章尾之后的p个字节  参考代码：
+#!/usr/bin/python fd=open(&amp;quot;test.txt&amp;quot;,&#39;r&#39;) #获得一个句柄 for i in xrange(1,3): #读取三行数据 fd.readline() label=fd.tell() #记录读取到的位置 fd.close() #关闭文件 #再次阅读文件 fd=open(&amp;quot;test.txt&amp;quot;,&#39;r&#39;) #获得一个句柄 fd.seek(label,0)# 把文件读取指针移动到之前记录的位置 fd.readline() #接着上次的位置继续向下读取  </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Python实现对大文件的增量读取 // My New Hugo Site</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://ycooperz.github.io/css/main.min.f90f5edd436ec7b74ad05479a05705770306911f721193e7845948fb07fe1335.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python实现对大文件的增量读取"/>
+<meta name="twitter:description" content=" 一、背景 前段时间在做算法测试，需要对源于日志的数据进行分析才能获取到结果；日志文件较大，所以需要获取数据的变化曲线，增量读取是最好的方式。
+ 网上有很多人的技术博客都是写的用for循环readline以及一个计数器去增量读取，假如文件很大，遍历一次太久。而且对于很多大文件的增量读取，如果遍历每一行比对历史记录的输出或者全都加载到内存通过历史记录的索引查找，是非常浪费资源的。
+获取文件句柄的基本理论中就包含指针操作。linux的文件描述符的struct里有一个f_pos的这么个属性，里面存着文件当前读取位置，通过这个东东经过vfs的一系列映射就会得到硬盘存储的位置了，所以很直接，很快。
+在Python中的读取文件的方法也有类似的属性。
+ 二、具体实现方法 Python中相关的方法的核心函数如下：
+   函数 作用     tell() 返回文件当前位置   seek() 从指定位置开始读取信息    其中seek()有三种模式：
+ f.seek(p,0)移动当文件第p个字节处，绝对位置 f.seek(p,1)移动到相对于当前位置之后的p个字节 f.seek(p,2)移动到相对文章尾之后的p个字节  参考代码：
+#!/usr/bin/python fd=open(&quot;test.txt&quot;,&#39;r&#39;) #获得一个句柄 for i in xrange(1,3): #读取三行数据 fd.readline() label=fd.tell() #记录读取到的位置 fd.close() #关闭文件 #再次阅读文件 fd=open(&quot;test.txt&quot;,&#39;r&#39;) #获得一个句柄 fd.seek(label,0)# 把文件读取指针移动到之前记录的位置 fd.readline() #接着上次的位置继续向下读取  "/>
+
+    <meta property="og:title" content="Python实现对大文件的增量读取" />
+<meta property="og:description" content=" 一、背景 前段时间在做算法测试，需要对源于日志的数据进行分析才能获取到结果；日志文件较大，所以需要获取数据的变化曲线，增量读取是最好的方式。
+ 网上有很多人的技术博客都是写的用for循环readline以及一个计数器去增量读取，假如文件很大，遍历一次太久。而且对于很多大文件的增量读取，如果遍历每一行比对历史记录的输出或者全都加载到内存通过历史记录的索引查找，是非常浪费资源的。
+获取文件句柄的基本理论中就包含指针操作。linux的文件描述符的struct里有一个f_pos的这么个属性，里面存着文件当前读取位置，通过这个东东经过vfs的一系列映射就会得到硬盘存储的位置了，所以很直接，很快。
+在Python中的读取文件的方法也有类似的属性。
+ 二、具体实现方法 Python中相关的方法的核心函数如下：
+   函数 作用     tell() 返回文件当前位置   seek() 从指定位置开始读取信息    其中seek()有三种模式：
+ f.seek(p,0)移动当文件第p个字节处，绝对位置 f.seek(p,1)移动到相对于当前位置之后的p个字节 f.seek(p,2)移动到相对文章尾之后的p个字节  参考代码：
+#!/usr/bin/python fd=open(&quot;test.txt&quot;,&#39;r&#39;) #获得一个句柄 for i in xrange(1,3): #读取三行数据 fd.readline() label=fd.tell() #记录读取到的位置 fd.close() #关闭文件 #再次阅读文件 fd=open(&quot;test.txt&quot;,&#39;r&#39;) #获得一个句柄 fd.seek(label,0)# 把文件读取指针移动到之前记录的位置 fd.readline() #接着上次的位置继续向下读取  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ycooperz.github.io/post/blog/" />
+<meta property="article:published_time" content="2019-10-08T16:30:58+08:00" />
+<meta property="article:modified_time" content="2019-10-08T16:30:58+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://ycooperz.github.io"><img class="app-header-avatar" src="/avatar.jpg" alt="John Doe" /></a>
+      <h1>My New Hugo Site</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium.</p>
+      <div class="app-header-social">
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Python实现对大文件的增量读取</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 8, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h3 id="一-背景">一、背景</h3>
+
+<p>前段时间在做算法测试，需要对源于日志的数据进行分析才能获取到结果；日志文件较大，所以需要获取数据的变化曲线，增量读取是最好的方式。</p>
+
+<p><img src="https://img2018.cnblogs.com/blog/1172048/201812/1172048-20181208160232586-19406433.png" alt="" /></p>
+
+<blockquote>
+<p>网上有很多人的技术博客都是写的用for循环readline以及一个计数器去增量读取，假如文件很大，遍历一次太久。而且对于很多大文件的增量读取，如果遍历每一行比对历史记录的输出或者全都加载到内存通过历史记录的索引查找，是非常浪费资源的。</p>
+
+<p>获取文件句柄的基本理论中就包含指针操作。linux的文件描述符的struct里有一个f_pos的这么个属性，里面存着文件当前读取位置，通过这个东东经过vfs的一系列映射就会得到硬盘存储的位置了，所以很直接，很快。</p>
+
+<p>在Python中的读取文件的方法也有类似的属性。</p>
+</blockquote>
+
+<h3 id="二-具体实现方法">二、具体实现方法</h3>
+
+<p>Python中相关的方法的核心函数如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>tell()</td>
+<td>返回文件当前位置</td>
+</tr>
+
+<tr>
+<td>seek()</td>
+<td>从指定位置开始读取信息</td>
+</tr>
+</tbody>
+</table>
+
+<p>其中seek()有三种模式：</p>
+
+<ul>
+<li>f.seek(p,0)移动当文件第p个字节处，绝对位置</li>
+<li>f.seek(p,1)移动到相对于当前位置之后的p个字节</li>
+<li>f.seek(p,2)移动到相对文章尾之后的p个字节</li>
+</ul>
+
+<p>参考代码：</p>
+
+<pre><code class="language-python">#!/usr/bin/python
+fd=open(&quot;test.txt&quot;,'r') #获得一个句柄
+for i in xrange(1,3): #读取三行数据
+    fd.readline()
+label=fd.tell() #记录读取到的位置
+fd.close() #关闭文件
+#再次阅读文件
+fd=open(&quot;test.txt&quot;,'r') #获得一个句柄
+fd.seek(label,0)# 把文件读取指针移动到之前记录的位置
+fd.readline() #接着上次的位置继续向下读取
+</code></pre>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
